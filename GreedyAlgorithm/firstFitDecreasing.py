@@ -5,6 +5,9 @@
 # stavku postavljamo u prvu korpu u listi koja raspolaze sa dovoljno praznog prostora za tu stavku.
 
 
+import sys
+sys.path.append('../')
+
 # funkcija koja ucitava instance problema iz zadate putanje
 def readInInstances(path):
     dict = {}

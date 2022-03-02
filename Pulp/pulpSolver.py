@@ -39,7 +39,7 @@ itemCount = len(items)
 maxBins = len(items)
 
 # Bin Size
-binCapacity = 100
+binCapacity = 50
 
 print("All good 1")
 

@@ -22,26 +22,41 @@ import The_Bin_Packing_Problem.GreedyAlgorithm.firstFitDecreasing as firstFitDec
 #
 
 #path = "C:\\Users\\Tanja\\Desktop\\Projekat iz OI\\The_Bin_Packing_Problem\\Instances\\"
-path = "C:\\Users\\Anel\\Desktop\\Faks\\3. Godina\\Operaciona Istraživanja\\Projekat\\The_Bin_Packing_Problem\\Instances\\"
+#path = "C:\\Users\\Anel\\Desktop\\Faks\\3. Godina\\Operaciona Istraživanja\\Projekat\\The_Bin_Packing_Problem\\Instances\\"
 
-a, b, dict = bin_size, number_of_instances, dict = firstFitDecreasing.readInInstances("C:\\Users\\Anel\\Desktop\\Faks\\3. Godina\\Operaciona Istraživanja\\Projekat\\The_Bin_Packing_Problem\\Pulp\\instance.txt")
+bin_size, number_of_instances, dict = firstFitDecreasing.readInInstances("C:\\Users\\Anel\\Desktop\\Faks\\3. Godina\\Operaciona Istraživanja\\Projekat\\The_Bin_Packing_Problem\\Pulp\\instance.txt")
 items = []
 for i in dict.keys():
     items.append((i,dict[i]))
-
-
+print(items)
+'''
+items = [("a", 5),
+         ("b", 6),
+         ("c", 7),
+         ("d", 32),
+         ("e", 2),
+         ("f", 32),
+         ("g", 5),
+         ("h", 7),
+         ("i", 9),
+         ("k", 12),
+         ("l", 11),
+         ("m", 1),
+         ("n", 2)]
+'''
 
 print(items)
 
-itemCount = len(items)
+itemCount = number_of_instances
 
 # Max number of bins allowed.
-maxBins = len(items)
+maxBins = itemCount
 
 # Bin Size
-binCapacity = 50
+binCapacity = bin_size
 
-print("All good 1")
+print("Bin size: " + str(bin_size))
+print("Number of instances: " + str(number_of_instances))
 
 # Indicator variable assigned 1 when the bin is used.
 y = pulp.LpVariable.dicts('BinUsed', range(maxBins),
@@ -80,7 +95,6 @@ for j in items:
 for i in range(maxBins):
     prob += lpSum([items[j][1] * x[(items[j][0], i)] for j in range(itemCount)]) <= binCapacity*y[i], ("The sum of item sizes must be smaller than the bin -- " + str(i))
 
-print("All good")
 
 # Write the model to disk
 prob.writeLP("BinPack.lp")
@@ -92,6 +106,8 @@ print("Solved in %s seconds." % (time.time() - start_time))
 
 
 # Bins used
+for i in range(maxBins):
+    print(str(y[i])+": " + str(y[i].value()))
 print("Bins used: " + str(sum(([y[i].value() for i in range(maxBins)]))))
 
 # The rest of this is some unpleasent massaging to get pretty results.

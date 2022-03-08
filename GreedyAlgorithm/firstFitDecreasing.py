@@ -26,7 +26,7 @@ def readInInstances(path):
 # a kao rezultat vraca listu skupova objekata, gdje je suma velicina objekata
 # svakog skupa manja ili jednaka od max_summed_size_per_bin.
 
-# def first_fit_decreasing_algorithm(sizes, max_summed_size_per_bin, return_sizes=None):
+
 def first_fit_decreasing_algorithm(dictionary, max_summed_size_per_bin, return_sizes=None):
     # definiramo listu skupova (korpi), u kojoj cemo cuvati stavke svake korpe
     list_of_bins = []
@@ -34,28 +34,29 @@ def first_fit_decreasing_algorithm(dictionary, max_summed_size_per_bin, return_s
     # stavke sortiramo u opadajucem redoslijedu po njihovim velicinama
 
     items = list(dictionary.keys())
-
     sorted_items = sorted(items, key=lambda x: dictionary[x], reverse=True)  # sortiranje u opadajucem redoslijedu
 
     # stavljamo svaku stavku u prvu korpu sa dovoljno praznog prostora:
     for my_item in sorted_items:
         found_a_bin = False
         item_size = dictionary[my_item]
+
         # provjeravamo da li postoji korpa sa dovoljno praznog prostora za ovu stavku
         for index, my_bin in enumerate(list_of_bins):  # "my_bin" je skup stavki u korpi
             # trazimo sumu velicina stavki u korpi
             summed_items_in_bin = sum([dictionary[x] for x in my_bin])
+
             # ako postoji dovoljno prostora za ovu stavku u korpi, stavljamo je u korpu
             if item_size <= (max_summed_size_per_bin - summed_items_in_bin):
                 list_of_bins[index].add(my_item)
                 found_a_bin = True
                 break  # iskacemo iz "for index, my bin" petlje
+
         # ukoliko nismo stavili my_item u neku korpu, tada tu stavku stavljamo u novu korpu
         if found_a_bin == False:
             list_of_bins.append({my_item})
 
     # return sizes koristimo kao uslov pri ispisu da li indeksa stavki ili njihovih vrijednosti u korpama
-
     if return_sizes is None:
         return list_of_bins  # vracamo nazive stavki
     else:

@@ -3,7 +3,7 @@
 # Napomena: ovo je heuristicki algoritam, te samim tim rezultat ne mora biti optimalno rjesenje.
 # Prvo sortiramo stavke u opadajucem redoslijedu po velicinima, a potom svaku
 # stavku postavljamo u prvu korpu u listi koja raspolaze sa dovoljno praznog prostora za tu stavku.
-
+# time complexity: O(n log n)
 
 import sys
 sys.path.append('../')

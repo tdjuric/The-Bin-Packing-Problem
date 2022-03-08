@@ -48,7 +48,7 @@ class Chromosome:
     def randomNumberOfBoxes(self):
         return random.randint(len(self.bins)+1)
 
-    
+
     #Fitness function
     def setFitness(self):
         k = 2

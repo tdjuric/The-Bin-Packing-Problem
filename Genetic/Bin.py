@@ -1,15 +1,15 @@
 #This needs to be changed
 class Bin:
-    def __init__(self, id, weight, value):
+    def __init__(self, id, capacity, contents):
         self.id = id
-        self.weight = weight
-        self.value = value
+        self.capacity = capacity
+        self.contents = contents
 
     def getId(self):
         return self.id
 
-    def getWeight(self):
-        return self.weight
+    def getCapacity(self):
+        return self.capacity
 
-    def getValue(self):
-        return self.value
+    def getContents(self):
+        return self.contents

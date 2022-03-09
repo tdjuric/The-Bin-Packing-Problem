@@ -1,7 +1,7 @@
-<<<<<<< HEAD
+
 import pulp
 pulp.pulpTestAll()
-=======
+
 
 
 
@@ -41,4 +41,4 @@ x = pulp.LpVariable.dicts('itemInBin', possible_ItemInBin,
                             cat = pulp.LpInteger)
 
 print(x)
->>>>>>> e8616f8b367f044bc2edf019bfa4325c4aacba60
+

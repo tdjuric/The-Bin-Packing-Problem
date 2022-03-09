@@ -2,9 +2,6 @@
 import pulp
 pulp.pulpTestAll()
 
-
-
-
 import pulp
 maxBins = 32
 
@@ -22,7 +19,6 @@ items = [("a", 5),
          ("l", 11),
          ("m", 1),
          ("n", 2)]
-
 
 y = pulp.LpVariable.dicts('BinUsed', range(maxBins),
                             lowBound = 0,

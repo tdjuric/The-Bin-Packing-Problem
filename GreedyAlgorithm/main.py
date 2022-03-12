@@ -5,11 +5,9 @@ import firstFitDecreasing as firstFitDecreasing
 from The_Bin_Packing_Problem.FileManipulation.ReadInInstances import readInInstances
 import timeit
 
-
 #path = "C:\\Users\\Tanja\\Desktop\\Projekat iz OI\\The_Bin_Packing_Problem\\Instances\\"
 #path = "C:\\Users\\Anel\\Desktop\\Faks\\3. Godina\\Operaciona Istraživanja\\Projekat\\The_Bin_Packing_Problem\\Instances\\"
 path = "C:\\Users\\PC\\Desktop\\OI projekat\\ProjectPython\\The_Bin_Packing_Problem\\Instances\\"
-##temp test
 '''
 bin_size, number_of_instances, dict = firstFitDecreasing.readInInstances(path + "small\instance0.txt")
 print("Bin size: " + str(bin_size))

@@ -1,9 +1,9 @@
-# Ovo je bin packing problem koji je rijesen pomocu jednostavnog heuristickog algoritma,
-# "First Fit Decreasing" (FFD) algoritma.
-# Napomena: ovo je heuristicki algoritam, te samim tim rezultat ne mora biti optimalno rjesenje.
-# Prvo sortiramo stavke u opadajucem redoslijedu po velicinima, a potom svaku
-# stavku postavljamo u prvu korpu u listi koja raspolaze sa dovoljno praznog prostora za tu stavku.
-# time complexity: O(n log n)
+''' Ovo je bin packing problem koji je rijesen pomocu jednostavnog heuristickog algoritma,
+ First Fit Decreasing (FFD) algoritma.
+ Napomena: ovo je heuristicki algoritam, te samim tim rezultat ne mora biti optimalno rjesenje.
+ Prvo sortiramo stavke u opadajucem redoslijedu po velicinima, a potom svaku
+ stavku postavljamo u prvu korpu u listi koja raspolaze sa dovoljno praznog prostora za tu stavku.
+ time complexity: O(n log n) '''
 
 import sys
 sys.path.append('../')
@@ -21,11 +21,9 @@ def readInInstances(path):
     f.close()
     return bin_size, number_of_instances, dict
 
-
-# funkcija koja za argument uzima dictionary (stavki i velicina) i velicinu kanti
-# a kao rezultat vraca listu skupova objekata, gdje je suma velicina objekata
-# svakog skupa manja ili jednaka od max_summed_size_per_bin.
-
+''' funkcija koja za argument uzima dictionary (stavki i velicina) i velicinu kanti
+a kao rezultat vraca listu skupova objekata, gdje je suma velicina objekata
+svakog skupa manja ili jednaka od max_summed_size_per_bin.'''
 
 def first_fit_decreasing_algorithm(dictionary, max_summed_size_per_bin, return_sizes=None):
     # definiramo listu skupova (korpi), u kojoj cemo cuvati stavke svake korpe
@@ -65,11 +63,4 @@ def first_fit_decreasing_algorithm(dictionary, max_summed_size_per_bin, return_s
         return list_of_item_sizes
 
 
-# path = "C:\\Users\\PC\\Desktop\\OI projekat\\PythonFirstFitD\\"
-# bin_size, number_of_instances, dict = readInInstances(path + "instance1\instance0.txt")
-# print("Bin size: " + str(bin_size))
-# print("Number of Instances: " + str(number_of_instances))
-# print("Instances: " + str(dict))
-
-# print(len(first_fit_decreasing_algorithm(dict, bin_size, return_sizes=True)))
 

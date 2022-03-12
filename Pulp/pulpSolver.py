@@ -1,13 +1,3 @@
-#
-# Bin packing as a LP problem:
-# http://www.or.deis.unibo.it/kp/Chapter8.pdf
-#
-# Requisite Wiki Article:
-# https://en.wikipedia.org/wiki/Bin_packing_problem
-#
-# PuLP Library:
-# https://pythonhosted.org/PuLP/index.html
-#
 import sys
 sys.path.append('../')
 
@@ -23,36 +13,17 @@ import The_Bin_Packing_Problem.GreedyAlgorithm.firstFitDecreasing as firstFitDec
 
 #path = "C:\\Users\\Tanja\\Desktop\\Projekat iz OI\\The_Bin_Packing_Problem\\Instances\\"
 #path = "C:\\Users\\Anel\\Desktop\\Faks\\3. Godina\\Operaciona Istraživanja\\Projekat\\The_Bin_Packing_Problem\\Instances\\"
-
-
-bin_size, number_of_instances, dict = firstFitDecreasing.readInInstances("C:\\Users\\Anel\\Desktop\\Faks\\3. Godina\\Operaciona Istraživanja\\Projekat\\The_Bin_Packing_Problem\\Pulp\\instance.txt")
-
+#path =  C:\\Users\\Tanja\\Desktop\\Projekat iz OI\\The_Bin_Packing_Problem\\Pulp\\instance.txt
 #path = "C:\\Users\\PC\\Desktop\\OI projekat\\ProjectPython\\The_Bin_Packing_Problem\\Instances\\"
-
 #bin_size, number_of_instances, dict = firstFitDecreasing.readInInstances("C:\\Users\\Anel\\Desktop\\Faks\\3. Godina\\Operaciona Istraživanja\\Projekat\\The_Bin_Packing_Problem\\Pulp\\instance.txt")
-bin_size, number_of_instances, dict = firstFitDecreasing.readInInstances("C:\\Users\\PC\\Desktop\\OI projekat\\ProjectPython\\The_Bin_Packing_Problem\\Pulp\\instance.txt")
+
+bin_size, number_of_instances, dict = firstFitDecreasing.readInInstances("C:\\Users\\Tanja\\Desktop\\Projekat iz OI\\The_Bin_Packing_Problem\\Pulp\\instance.txt")
 
 items = []
 for i in dict.keys():
     items.append((i,dict[i]))
 print(items)
-'''
-items = [("a", 5),
-         ("b", 6),
-         ("c", 7),
-         ("d", 32),
-         ("e", 2),
-         ("f", 32),
-         ("g", 5),
-         ("h", 7),
-         ("i", 9),
-         ("k", 12),
-         ("l", 11),
-         ("m", 1),
-         ("n", 2)]
-'''
 
-print(items)
 
 itemCount = number_of_instances
 

@@ -50,7 +50,7 @@ x = pulp.LpVariable.dicts('itemInBin', possible_ItemInBin,
 prob = LpProblem("Bin Packing Problem", LpMinimize)
 
 # Dodavanje f-je cilja
-prob += lpSum([y[i] for i in range(maxBins)]), "Objective: Minimize Bins Used"
+prob += lpSum([y[i] for i in range(maxBins)]), "Cilj: Minimizovati iskorištenost korpi"
 
 # Ogranicenja:
 

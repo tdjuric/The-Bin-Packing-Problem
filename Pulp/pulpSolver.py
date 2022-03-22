@@ -5,15 +5,16 @@ sys.path.append('../')
 from pulp import *
 import time
 import The_Bin_Packing_Problem.GreedyAlgorithm.firstFitDecreasing as firstFitDecreasing
+import The_Bin_Packing_Problem.FileManipulation.ReadInInstances as ReadInInstances
 
 # path = "C:\\Users\\Tanja\\Desktop\\Projekat iz OI\\The_Bin_Packing_Problem\\Instances\\"
-# path = "C:\\Users\\Anel\\Desktop\\Faks\\3. Godina\\Operaciona Istraživanja\\Projekat\\The_Bin_Packing_Problem\\Instances\\"
+path = "C:\\Users\\Anel\\Desktop\\Faks\\3. Godina\\Operaciona Istraživanja\\Projekat\\The_Bin_Packing_Problem\\"
 # path =  C:\\Users\\Tanja\\Desktop\\Projekat iz OI\\The_Bin_Packing_Problem\\Pulp\\instance.txt
 # path = "C:\\Users\\PC\\Desktop\\OI projekat\\ProjectPython\\The_Bin_Packing_Problem\\Instances\\"
 # bin_size, number_of_instances, dict = firstFitDecreasing.readInInstances("C:\\Users\\Anel\\Desktop\\Faks\\3. Godina\\Operaciona Istraživanja\\Projekat\\The_Bin_Packing_Problem\\Pulp\\instance.txt")
 
-bin_size, number_of_instances, dict = firstFitDecreasing.readInInstances(
-    "C:\\Users\\Tanja\\Desktop\\Projekat iz OI\\The_Bin_Packing_Problem\\Pulp\\instance.txt")
+bin_size, number_of_instances, dict = ReadInInstances.readInInstances(path + "Instances\\instance.txt")
+    #"C:\\Users\\Tanja\\Desktop\\Projekat iz OI\\The_Bin_Packing_Problem\\Pulp\\instance.txt")
 
 items = []
 for i in dict.keys():
@@ -50,18 +51,18 @@ x = pulp.LpVariable.dicts('itemInBin', possible_ItemInBin,
 prob = LpProblem("Bin Packing Problem", LpMinimize)
 
 # Dodavanje f-je cilja
-prob += lpSum([y[i] for i in range(maxBins)]), "Cilj: Minimizovati iskorištenost korpi"
+prob += lpSum([y[i] for i in range(maxBins)]), "Cilj: Minimizovati iskoristenost korpi"
 
 # Ogranicenja:
 
 # Prvo ograničenje: Za svaku stavku, zbir korpa u kojima se pojavljuje mora biti 1
 for j in items:
-    prob += lpSum([x[(j[0], i)] for i in range(maxBins)]) == 1, ("Stavka može biti samo u jednoj korpi -- " + str(j[0]))
+    prob += lpSum([x[(j[0], i)] for i in range(maxBins)]) == 1, ("Stavka moze biti samo u jednoj korpi -- " + str(j[0]))
 
 # Drugo ograničenje: Za svaku korpu, broj stavki u korpi ne može premašiti kapacitet korpe
 for i in range(maxBins):
     prob += lpSum([items[j][1] * x[(items[j][0], i)] for j in range(itemCount)]) <= binCapacity * y[i], (
-                "Suma veličina stavki mora biti manja od kapaciteta korpe -- " + str(i))
+                "Suma velicina stavki mora biti manja od kapaciteta korpe -- " + str(i))
 
 # Zapisujemo model na disk
 prob.writeLP("BinPack.lp")

@@ -23,6 +23,7 @@ class Bin:
 
     def addElement(self, element):
         self.contents.append(element)
+        self.fill += element.getValue()
 
     def __repr__(self):
         s = "Id: " + str(self.id) + ", Capacity: " + str(self.capacity) + ", Contents: " + str(self.contents)

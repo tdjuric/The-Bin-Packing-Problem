@@ -1,6 +1,6 @@
 import random
 from The_Bin_Packing_Problem.Genetic.Bin import Bin
-
+from The_Bin_Packing_Problem.Genetic.Item import Item
 
 class Chromosome:
 
@@ -49,7 +49,7 @@ class Chromosome:
     def fillBins(self):
         for i, el in enumerate (self.chromosome):
             self.bins[el-1].addElement(items[i])
-            self.bins[el-1].setFill((self.bins[el-1].getFill()) + (items[i]))
+            #self.bins[el-1].setFill((self.bins[el-1].getFill()) + (items[i]))
 
 
     #Fitness function
@@ -65,7 +65,7 @@ class Chromosome:
             fill = el.getFill()
             capacity = el.getCapacity()
 
-            value = (fill / capacity) ** 5
+            value = (fill / capacity) **10
             sum += value
         print(n)
         self.fitness = sum / n
@@ -86,7 +86,7 @@ b4 = Bin(4, 5, 0)
 b5 = Bin(5, 5, 0)
 
 # Ovo cemo citati iz filea
-items = [5,1,3,2,4]
+items = [Item(1,5),Item(2,1), Item(3,3), Item(4,2), Item(5,4)]
 
 a = Chromosome(5, [b1, b2, b3, b4, b5], 5, items)
 

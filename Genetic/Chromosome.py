@@ -78,6 +78,7 @@ class Chromosome:
 
 
 # TODO Napisati funkcija za generisanje praznih binova
+# emptyBingenerator uzma n vraca n binova
 
 b1 = Bin(1, 5, 0)
 b2 = Bin(2, 5, 0)

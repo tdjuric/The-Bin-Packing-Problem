@@ -8,7 +8,7 @@ class Generation:
 
 
     def generateNextGen(self):
-
+        #volim
     def getCrossOverPoint(self):
         return random.randint(0, self.genes.size())
 

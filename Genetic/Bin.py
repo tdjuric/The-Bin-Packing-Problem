@@ -1,4 +1,3 @@
-#This needs to be changed
 class Bin:
     def __init__(self, id, capacity, fill):
         self.id = id

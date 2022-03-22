@@ -5,13 +5,12 @@ class Generation:
     crossover_prob = 85
     mutation_prob = 10
     def __init__(self):
-
+        # TODO
+        return
 
     def generateNextGen(self):
-
-        #volim
-
         # TODO
+        return
 
     def getCrossOverPoint(self):
         # TODO

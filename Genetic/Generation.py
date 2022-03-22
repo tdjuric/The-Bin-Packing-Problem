@@ -8,8 +8,10 @@ class Generation:
 
 
     def generateNextGen(self):
+        # TODO
 
     def getCrossOverPoint(self):
+        # TODO
         return random.randint(0, self.genes.size())
 
     def crossOverMutationRate(self, probability):

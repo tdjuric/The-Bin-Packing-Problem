@@ -65,7 +65,7 @@ class Chromosome:
             fill = el.getFill()
             capacity = el.getCapacity()
 
-            value = (fill / capacity) **10
+            value = (fill / capacity) **4
             sum += value
         print(n)
         self.fitness = sum / n

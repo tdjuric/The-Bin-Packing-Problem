@@ -77,8 +77,11 @@ class Chromosome:
         return s
 
 
-# TODO Napisati funkcija za generisanje praznih binova
-# emptyBingenerator uzma n vraca n binova
+    def emptyBinGenerator(n):
+        listOfEmptyBins = list()
+        for i in range (n):
+            listOfEmptyBins.append(Bin(i,0,0));
+        return listOfEmptyBins
 
 b1 = Bin(1, 5, 0)
 b2 = Bin(2, 5, 0)

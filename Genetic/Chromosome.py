@@ -35,7 +35,6 @@ class Chromosome:
 
 
 
-
     # Randomly populating chromosome List with the index of a bin they will be placed in
     def setChromosome(self):
         n = self.max_bins

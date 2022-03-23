@@ -3,23 +3,24 @@ from The_Bin_Packing_Problem.Genetic.Bin import Bin
 from The_Bin_Packing_Problem.Genetic.Item import Item
 from The_Bin_Packing_Problem.Genetic.Chromosome import Chromosome
 import math
+import time
 
 class Generation:
 
-    genes = list()          #Tuple of Bin and Item objects like gen(element) in genes(list)
-    arrayPop = list()       #Population stored in array for quick access by index
-    population = dict()     #HashSet to avoid duplicates in population
+    genes = list()          # Tuple  Bin and Item objekata kao element gen u lsiti genes
+    arrayPop = list()       # Populacija je pohranjena u nizu za brzi pristup po indeksu
+    population = dict()     # HashSet za izbjegavanje duplikata u populaciji
 
-    k = 25                  # For k tournament selection
-    crossover_prob = 85     # 0.85 cross-over probability, 85% chance
-    mutation_prob = 10      # 0.1 mutation probability, 10% chance
+    k = 25                  # Za k turnirsku selekciju
+    crossover_prob = 85     # 0.85 cross-over vjerovatnoca, 85% sanse
+    mutation_prob = 10      # 0.1 mutation vjerovatnoca, 10% sanse
 
-    capacity = int()        # capacity
-    genNumber = int()       # number og genes
-    popSize = int()         # population size
-    bestFit = Chromosome()  #Fittest chromosome in the population
+    capacity = int()        # kapacitet
+    genNumber = int()       # beoj generacija
+    popSize = int()         # velicina populacije
+    bestFit = Chromosome()  # Hromozom sa najboljom prilagodjenosti u populaciji
 
-    # Initialization
+    # Inicijalizacija
     # genes, capacity
     def __init__(self, *args):
         self.genes = args[0]
@@ -42,12 +43,12 @@ class Generation:
 
             index += 1
 
-        genNumber = 1;
+        self.genNumber = 1;
 
 
     def generateNextGen(self):
-        parents = list() # Can pick the same chromosome multiple times for reproduction(usually be the best fitness)
-        #Selection of parents randomly by K-Way tournament
+        parents = list() # Može odabrati isti hromosom više puta za reprodukciju
+        # Odabir roditelja nasumično po K-tom turniru
 
         while (parents.size() != self.popSize):
             index = (int)(math.random() * self.popSize);
@@ -58,6 +59,13 @@ class Generation:
                     fittestChromosome = self.arrayPop.get(index)
 
             parents.add(fittestChromosome);
+
+        seed = time.time_ns();
+        new_random = random(seed)
+        random.shuffle(parents, new_random);
+
+        self.population.clear();
+        self.arrayPop.clear();
 
 
 

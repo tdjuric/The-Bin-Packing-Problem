@@ -5,7 +5,7 @@ from The_Bin_Packing_Problem.Genetic.Item import Item
 class Chromosome:
 
     # Initialization
-    # capacity, list of bins, max_bins, *chromosome
+    # capacity of bin, list of bins, max_bins, *chromosome
     def __init__(self, *args):
         self.capacity = args[0]
         self.bins = args[1]
@@ -76,10 +76,10 @@ class Chromosome:
         return s
 
 
-    def emptyBinGenerator(n):
+    def emptyBinGenerator(n, c):
         listOfEmptyBins = list()
         for i in range (n):
-            listOfEmptyBins.append(Bin(i,0,0));
+            listOfEmptyBins.append(Bin(i,c,0));
         return listOfEmptyBins
 
 b1 = Bin(1, 5, 0)
@@ -91,10 +91,10 @@ b5 = Bin(5, 5, 0)
 # Ovo cemo citati iz filea
 items = [Item(1,5),Item(2,1), Item(3,3), Item(4,2), Item(5,4)]
 
-a = Chromosome(5, [b1, b2, b3, b4, b5], 5, items)
 
-
-print(a)
+for i in range (25):
+    a = Chromosome(5, Chromosome.emptyBinGenerator(5,5), 5, items)
+    print(str(i) , a)
 # Random redoslijed popunjavanja kanti
 # a.setChromosome()
 # Popunjavanje kanti po random redoslijedu

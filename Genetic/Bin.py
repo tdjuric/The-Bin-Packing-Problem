@@ -1,5 +1,7 @@
 class Bin:
     def __init__(self, id, capacity, fill):
+
+        # promijeniti listu contents u stack
         self.id = id
         self.capacity = capacity
         self.fill = fill
@@ -27,3 +29,9 @@ class Bin:
     def __repr__(self):
         s = "Id: " + str(self.id) + ", Capacity: " + str(self.capacity) + ", Contents: " + str(self.contents)
         return s
+
+    def emptyBinGenerator(n, c):
+        listOfEmptyBins = list()
+        for i in range (n):
+            listOfEmptyBins.append(Bin(i,c,0));
+        return listOfEmptyBins

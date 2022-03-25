@@ -40,7 +40,7 @@ class Chromosome:
         n = self.max_bins
 
         for i in range(n):
-            place = random.randint(1, self.max_bins)
+            place = random.randint(0, self.max_bins-1)
             self.chromosome.insert(i, place)
         random.shuffle(self.chromosome)
 
@@ -53,7 +53,7 @@ class Chromosome:
 
     #Fitness function
     def setFitness(self):
-        k = 2
+        k = 4
         n = 0
         for bin in self.bins:
             if (len(bin.contents) != 0):
@@ -64,9 +64,8 @@ class Chromosome:
             fill = el.getFill()
             capacity = el.getCapacity()
 
-            value = (fill / capacity) **4
+            value = (fill / capacity) **k
             sum += value
-        print(n)
         self.fitness = sum / n
 
     def binAdjustment(self):
@@ -102,7 +101,7 @@ class Chromosome:
 
     def __repr__(self):
         s = "Capacity: " + str(self.capacity) + "\nBins: " + str(self.bins) + "\nChromosome list: " + str(
-            self.chromosome) + "\n Fitness: " + str(self.fitness)
+            self.chromosome) + "\nFitness: " + str(self.fitness) + "\n"
         return s
 
 

@@ -14,7 +14,6 @@ class Chromosome:
         self.chromosome = []
         self.fitness = 0
         if len(args) == 4:
-            print("Not a child chromosome")
             self.setChromosome()
             self.fillBins()
             self.binAdjustment()
@@ -70,29 +69,13 @@ class Chromosome:
         print(n)
         self.fitness = sum / n
 
-
-
-    def __repr__(self):
-        s = "Capacity: " + str(self.capacity) + "\nBins: " + str(self.bins) + "\nChromosome list: " + str(self.chromosome) + "\n Fitness: " + str(self.fitness)
-        return s
-
-
-    def emptyBinGenerator(n, c):
-        listOfEmptyBins = list()
-        for i in range (n):
-            listOfEmptyBins.append(Bin(i,c,0));
-        return listOfEmptyBins
-
     def binAdjustment(self):
         temp_items = []
-        print("Bin state before adjsutment")
         print(self.bins)
         for bin in self.bins:
             if (bin.fill > bin.capacity):
                 while (bin.fill>bin.capacity):
                     temp_items.append(bin.removeElement())
-        print("Bin state after taking out items")
-        print(self.bins)
         if(temp_items):
             self.FFD(temp_items)
             self.chromosomeAdjustment()
@@ -103,7 +86,6 @@ class Chromosome:
                 for item in bin.getContents():
                     self.chromosome[item.getId()] = bin.getId()
 
-
     def FFD(self, items):
         sorted_items = sorted(items, key=lambda x: x.getValue(), reverse=True)
         for my_item in sorted_items:
@@ -112,35 +94,24 @@ class Chromosome:
             for my_bin in self.bins:
                 if(item_size < (my_bin.getCapacity() - my_bin.getFill())):
                     my_bin.addElement(my_item)
-                    print("ADDING ELEMENT TO BIN")
                     found_a_bin = True
                     break
             if found_a_bin == False:
                 # it shouldn't come to this, and if it does something is really wrong
                 print("Error!!!!")
 
+    def __repr__(self):
+        s = "Capacity: " + str(self.capacity) + "\nBins: " + str(self.bins) + "\nChromosome list: " + str(
+            self.chromosome) + "\n Fitness: " + str(self.fitness)
+        return s
 
-
-b1 = Bin(0, 5, 0)
-b2 = Bin(1, 5, 0)
-b3 = Bin(2, 5, 0)
-b4 = Bin(3, 5, 0)
-b5 = Bin(4, 5, 0)
 
 # Ovo cemo citati iz filea
 items = [Item(0,5),Item(1,1), Item(2,3), Item(3,2), Item(4,4)]
 
-
-
-for i in range (25):
+for i in range (30):
     a = Chromosome(5, Bin.emptyBinGenerator(5,5), 5, items)
     print(a)
-# Random redoslijed popunjavanja kanti
-# a.setChromosome()
-# Popunjavanje kanti po random redoslijedu
-# a.fillBoxes()
-# Odredivanje fitness funkcija chromosoma
-# a.setFitness()
 
 
 

@@ -31,12 +31,12 @@ class Bin:
         self.fill -= item.getValue()
         return item
 
-    def __repr__(self):
-        s = "Id: " + str(self.id) + ", Capacity: " + str(self.capacity) + ", Contents: " + str(self.contents)
-        return s
-
     def emptyBinGenerator(n, c):
         listOfEmptyBins = list()
         for i in range (n):
-            listOfEmptyBins.append(Bin(i,c,0));
+            listOfEmptyBins.append(Bin(i,c,0))
         return listOfEmptyBins
+
+    def __repr__(self):
+        s = "Id: " + str(self.id) + ", Capacity: " + str(self.capacity) + ", Contents: " + str(self.contents)
+        return s

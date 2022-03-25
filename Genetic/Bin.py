@@ -26,6 +26,11 @@ class Bin:
         self.contents.append(element)
         self.fill += element.getValue()
 
+    def removeElement(self):
+        item = self.contents.pop()
+        self.fill -= item.getValue()
+        return item
+
     def __repr__(self):
         s = "Id: " + str(self.id) + ", Capacity: " + str(self.capacity) + ", Contents: " + str(self.contents)
         return s

@@ -17,9 +17,10 @@ class Chromosome:
             print("Not a child chromosome")
             self.setChromosome()
             self.fillBins()
+            self.binAdjustment()
             self.setFitness()
 
-        # Used for intitializing a child chromosome
+        # TODO Used for intitializing a child chromosome
         else:
             self.chromosome = args[4]
             #setFitness()
@@ -82,19 +83,58 @@ class Chromosome:
             listOfEmptyBins.append(Bin(i,c,0));
         return listOfEmptyBins
 
-b1 = Bin(1, 5, 0)
-b2 = Bin(2, 5, 0)
-b3 = Bin(3, 5, 0)
-b4 = Bin(4, 5, 0)
-b5 = Bin(5, 5, 0)
+    def binAdjustment(self):
+        temp_items = []
+        print("Bin state before adjsutment")
+        print(self.bins)
+        for bin in self.bins:
+            if (bin.fill > bin.capacity):
+                while (bin.fill>bin.capacity):
+                    temp_items.append(bin.removeElement())
+        print("Bin state after taking out items")
+        print(self.bins)
+        if(temp_items):
+            self.FFD(temp_items)
+            self.chromosomeAdjustment()
+
+    def chromosomeAdjustment(self):
+        for bin in self.bins:
+            if(bin.getContents()):
+                for item in bin.getContents():
+                    self.chromosome[item.getId()] = bin.getId()
+
+
+    def FFD(self, items):
+        sorted_items = sorted(items, key=lambda x: x.getValue(), reverse=True)
+        for my_item in sorted_items:
+            found_a_bin = False
+            item_size = my_item.getValue()
+            for my_bin in self.bins:
+                if(item_size < (my_bin.getCapacity() - my_bin.getFill())):
+                    my_bin.addElement(my_item)
+                    print("ADDING ELEMENT TO BIN")
+                    found_a_bin = True
+                    break
+            if found_a_bin == False:
+                # it shouldn't come to this, and if it does something is really wrong
+                print("Error!!!!")
+
+
+
+b1 = Bin(0, 5, 0)
+b2 = Bin(1, 5, 0)
+b3 = Bin(2, 5, 0)
+b4 = Bin(3, 5, 0)
+b5 = Bin(4, 5, 0)
 
 # Ovo cemo citati iz filea
-items = [Item(1,5),Item(2,1), Item(3,3), Item(4,2), Item(5,4)]
+items = [Item(0,5),Item(1,1), Item(2,3), Item(3,2), Item(4,4)]
+
 
 
 for i in range (25):
-    a = Chromosome(5, Chromosome.emptyBinGenerator(5,5), 5, items)
-    print(str(i) , a)
+    a = Chromosome(5, Bin.emptyBinGenerator(5,5), 5, items)
+    print(a)
 # Random redoslijed popunjavanja kanti
 # a.setChromosome()
 # Popunjavanje kanti po random redoslijedu

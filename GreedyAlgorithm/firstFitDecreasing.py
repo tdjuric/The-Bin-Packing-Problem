@@ -58,6 +58,7 @@ def first_fit_decreasing_algorithm(dictionary, max_summed_size_per_bin, return_s
     if return_sizes is None:
         return list_of_bins  # vracamo nazive stavki
     else:
+        print(len(list_of_bins))
         # pravimo listu podlisti, gdje svaka podslita sadrzi velicine stavki u korpi:
         list_of_item_sizes = [sorted([dictionary[x] for x in sublist]) for sublist in list_of_bins]
         return list_of_item_sizes

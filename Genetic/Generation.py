@@ -12,7 +12,7 @@
 import random
 from The_Bin_Packing_Problem.Genetic.Bin import Bin
 from The_Bin_Packing_Problem.Genetic.Item import Item
-from The_Bin_Packing_Problem.Genetic.Chromosome import Chromosome
+from The_Bin_Packing_Problem.Genetic.Individual import Individual
 import math
 import time
 
@@ -29,7 +29,7 @@ class Generation:
     capacity = int()        # kapacitet
     genNumber = int()       # beoj generacija
     popSize = int()         # velicina populacije
-    bestFit = Chromosome()  # Hromozom sa najboljom prilagodjenosti u populaciji
+    bestFit = Individual()  # Hromozom sa najboljom prilagodjenosti u populaciji
 
     # Inicijalizacija
     # genes, capacity
@@ -37,16 +37,16 @@ class Generation:
         self.genes = args[0]
         self.capacity = args[1]
         self.popSize = int(math.pow(2, len(self.genes)) / int(math.pow(2, len(self.genes)) - 5))
-        self.arrayPop = [Chromosome() for i in range(self.popSize)]
+        self.arrayPop = [Individual() for i in range(self.popSize)]
 
 
         index = 0
-        chromo = Chromosome(self.capacity, self.genes)
+        chromo = Individual(self.capacity, self.genes)
         bestFit = chromo
         while (self.popSize != len(self.population)):
-            chromo = Chromosome(self.capacity, self.genes)
+            chromo = Individual(self.capacity, self.genes)
             while (not (self.population.put(chromo))):
-              chromo = Chromosome(self.capacity, self.genes)
+              chromo = Individual(self.capacity, self.genes)
 
             self.arrayPop.add(index, chromo);
 
@@ -64,7 +64,7 @@ class Generation:
 
         while (parents.size() != self.popSize):
             index = (int)(math.random() * self.popSize);
-            fittestChromosome = (Chromosome) (self.arrayPop.get(index))
+            fittestChromosome = (Individual) (self.arrayPop.get(index))
             for i in range(0, self.k - 1):
                 index = (int)(math.random() * self.popSize);
                 if (fittestChromosome.compareTo(self.arrayPop.get(index)) == -1):

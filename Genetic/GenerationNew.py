@@ -69,12 +69,12 @@ class GenerationNew:
 
         # improving on the algorithm by mixing newly created gen with parents and selecting the best #population_count
 
-        #self.population.extend(offspring_list)
+        # GenerationNew.population.extend(offspring_list)
         GenerationNew.population = offspring_list
 
-        #self.population = sorted(self.population, key=lambda x: x.getFitness(), reverse=False)[:self.population_count]
-
-        #print("Duzina: ", len(self.population))
+        # GenerationNew.population = sorted(GenerationNew.population, key=lambda x: x.fitness, reverse=True)[:self.population_count]
+        # Generation
+        # print("Duzina: ", len(self.population))
 
 
 

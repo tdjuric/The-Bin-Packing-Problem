@@ -23,11 +23,11 @@ class Individual:
         # TODO Used for intitializing a child chromosome; I think it's done
         else:
             self.genes = args[3]
-            print("New offspring genes: ", self.genes)
+            # print("New offspring genes: ", self.genes)
             self.fillBins()
             self.binAdjustment()
             self.setFitness()
-            print("New ofspring fitness: ", self.fitness)
+            # print("New ofspring fitness: ", self.fitness)
 
     def getGenes(self):
         return self.genes
@@ -58,7 +58,7 @@ class Individual:
 
     # Fitness function
     def setFitness(self):
-        k = 4
+        k = 2
         used_bins = 0
         sum = 0
 

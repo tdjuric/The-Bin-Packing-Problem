@@ -31,7 +31,7 @@ for i in range(GenerationNew.population_count):
 GenerationNew.population = initial_individuals
 g = GenerationNew(items, bin_capacity, item_count)
 #print(g.getPopulation())
-for GenerationNew.gen_count in range (200):
+for GenerationNew.gen_count in range (1000):
     g = GenerationNew(items, bin_capacity, item_count)
 
 print(g.population[0].getFullBinCount())

@@ -5,7 +5,8 @@ import The_Bin_Packing_Problem.FileManipulation.ReadInInstances as ReadInInstanc
 
 # items = [Item(0, 5), Item(1, 1), Item(2, 3), Item(3, 2), Item(4, 4)]
 
-path = "C:\\Users\\PC\\Desktop\\OI projekat\\ProjectPython\\The_Bin_Packing_Problem\\Instances\\"
+# path = "C:\\Users\\PC\\Desktop\\OI projekat\\ProjectPython\\The_Bin_Packing_Problem\\Instances\\"
+path = "C:\\Users\\Anel\\Desktop\\Faks\\3. Godina\\Operaciona Istraživanja\\Projekat\\The_Bin_Packing_Problem\\Instances\\"
 
 bin_capacity, item_count, dict = ReadInInstances.readInInstances(path + "instance.txt")
 print("Bin cap", bin_capacity)

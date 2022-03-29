@@ -11,11 +11,13 @@ import random
 from The_Bin_Packing_Problem.Genetic.Individual import Individual
 
 
+
 class GenerationNew:
 
     population_count = 30
     gen_count = 0
     population = []
+    mutation_chance = 0.1
 
     # TODO needs a constructor class that takes in Individuals list i.e. Individuals of a generation as argument
 
@@ -56,10 +58,14 @@ class GenerationNew:
 
             offspring_a, offspring_b = self.generateOffspring(mother, father)
 
-            offspring_list.append(offspring_a)
-            offspring_list.append(offspring_b)
 
             # mutate
+
+            offspring_a, offspring_b = self.mutate(offspring_a, offspring_b)
+
+
+            offspring_list.append(offspring_a)
+            offspring_list.append(offspring_b)
 
         # improving on the algorithm by mixing newly created gen with parents and selecting the best #population_count
 
@@ -101,6 +107,30 @@ class GenerationNew:
             return candidate_1
         else:
             return candidate_2
+
+    def mutate(self, offspring_a, offspring_b):
+        new_offspring_a = Individual (self.bin_capacity, self.item_count, self.items, offspring_a.getGenes())
+        new_offspring_b = Individual(self.bin_capacity, self.item_count, self.items, offspring_b.getGenes())
+
+        if(random.uniform(0,1) <= self.mutation_chance):
+            new_offspring_a = self.mutateIndividual(offspring_a)
+            print("Mutation")
+
+        if (random.uniform(0, 1) <= self.mutation_chance):
+            new_offspring_b = self.mutateIndividual(offspring_b)
+            print("Mutation")
+
+        return new_offspring_a, new_offspring_b
+
+    def mutateIndividual(self, individual):
+        genes = individual.getGenes()
+        index = random.randint(0,len(genes)-1)
+        new_bin = random.randint(0,self.item_count-1)
+        while (genes[index] == new_bin):
+            new_bin = random.randint(0, self.item_count - 1)
+        genes[index] = new_bin
+        return individual
+
 
     def getGenCount(self):
         return GenerationNew.gen_count

@@ -40,7 +40,7 @@ class Individual:
         return count
 
 
-    # Randomly populating chromosome List with the index of a bin they will be placed in
+    # Randomly populating genes (items) List with the index of a bin they will be placed in
     def setGenes(self):
 
         for i in range(self.item_count):
@@ -48,9 +48,9 @@ class Individual:
             self.genes.append(place)
         random.shuffle(self.genes)
 
-        #print("Chromosome before adjustment", self.genes)
+        #print("Genes before adjustment", self.genes)
 
-    # Filling bins with items according to the random chromosome list
+    # Filling bins with items according to the random gene list
     def fillBins(self):
         for i, el in enumerate(self.genes):
             self.bins[el].addElement(self.items[i])

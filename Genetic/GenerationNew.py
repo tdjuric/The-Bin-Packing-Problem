@@ -26,17 +26,29 @@ class GenerationNew:
         self.bin_capacity = bin_capacity
         self.item_count = item_count
         GenerationNew.gen_count += 1
-        print("Generation number: " + str(GenerationNew.gen_count))
+        # print("Generation number: " + str(GenerationNew.gen_count))
         self.doGeneration()
-        print("Best fitness: ")
+        # print("Best fitness: ")
 
-
+        '''
         i = GenerationNew.population[0].getFitness()
         for el in GenerationNew.population:
             print("EL fitness: ", el.getFitness())
             if (el.getFitness()>i):
                 i = el.getFitness()
         print(i)
+        '''
+        if self.gen_count == 250:
+            best_individual = Individual
+            full_bins = self.item_count
+            for el in GenerationNew.population:
+                count = el.getFullBinCount()
+                if count < full_bins:
+                    best_individual = el
+                    full_bins = el.getFullBinCount()
+
+            # print("Best genes: ", best_individual.getGenes())
+            print("Sorted in ", full_bins, " bins")
 
     def getPopulation(self):
         return GenerationNew.population
@@ -114,11 +126,11 @@ class GenerationNew:
 
         if(random.uniform(0,1) <= self.mutation_chance):
             new_offspring_a = self.mutateIndividual(offspring_a)
-            print("Mutation")
+            # print("Mutation")
 
         if (random.uniform(0, 1) <= self.mutation_chance):
             new_offspring_b = self.mutateIndividual(offspring_b)
-            print("Mutation")
+            # print("Mutation")
 
         return new_offspring_a, new_offspring_b
 

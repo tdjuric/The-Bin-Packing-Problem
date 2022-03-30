@@ -38,6 +38,11 @@ class GenerationNew:
                 i = el.getFitness()
         print(i)
         '''
+
+        # TODO counting bins to see if there was change in the result in the past 40gens
+
+
+
         if self.gen_count == 250:
             best_individual = Individual
             full_bins = self.item_count

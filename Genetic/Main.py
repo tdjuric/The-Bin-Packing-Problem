@@ -1,9 +1,11 @@
 import timeit
 
-from Item import Item
-from Individual import Individual
-from GenerationNew import GenerationNew
+
 import The_Bin_Packing_Problem.FileManipulation.ReadInInstances as ReadInInstances
+
+from The_Bin_Packing_Problem.Genetic.Item import  Item
+from The_Bin_Packing_Problem.Genetic.Individual import Individual
+from The_Bin_Packing_Problem.Genetic.GenerationNew import GenerationNew
 
 # items = [Item(0, 5), Item(1, 1), Item(2, 3), Item(3, 2), Item(4, 4)]
 
@@ -56,7 +58,7 @@ def run():
         items = []
         bin_capacity, item_count, dict = ReadInInstances.readInInstances(path + "small\instance" + str(i) + ".txt")
         for j in range(item_count):
-            items.append(Item(j, dict["item" + str(j + 1)]))
+            items.append(Item(j, dict["item" + str(j+1)]))
         t = timeit.Timer(lambda: runAlgorithm(bin_capacity, item_count, items))
         print("Time to solve instance" + str(i) + ": " + str(t.timeit(number=1)))
 

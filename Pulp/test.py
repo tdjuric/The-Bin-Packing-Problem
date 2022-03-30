@@ -1,40 +1,36 @@
+import pulpSolver as pulpSolver
 
-import pulp
-pulp.pulpTestAll()
+path = "C:\\Users\\Tanja\\Desktop\\Projekat iz OI\\The_Bin_Packing_Problem\\"
+import timeit
 
-import pulp
-maxBins = 32
+#pulpSolver.run("C:\\Users\\Tanja\\Desktop\\Projekat iz OI\\The_Bin_Packing_Problem\\")
 
+print("Solving small instances...")
+for i in range(15):
 
-items = [("a", 5),
-         ("b", 6),
-         ("c", 7),
-         ("d", 32),
-         ("e", 2),
-         ("f", 32),
-         ("g", 5),
-         ("h", 7),
-         ("i", 9),
-         ("k", 12),
-         ("l", 11),
-         ("m", 1),
-         ("n", 2)]
+    print(pulpSolver.run(path, "Instances\\small\\instance" + str(i) + ".txt"))
+   # t = pulpSolver.run(path, "Instances\\small\\instance" + str(i) + ".txt")
+   # print("Time to solve instance" + str(i) + ": " + str(t.time))
 
-y = pulp.LpVariable.dicts('BinUsed', range(maxBins),
-                            lowBound = 0,
-                            upBound = 1,
-                            cat = pulp.LpInteger)
+print("Solving medium instances...")
+for i in range(15):
+        pulpSolver.run(path, "Instances\\medium\\instance" + str(i) + ".txt")
+       # t = pulpSolver.run(path, "Instances\\medium\\instance" + str(i) + ".txt")
+       # print("Time to solve instance" + str(i) + ": " + str(t.timeit(number=1)))
 
-print(y)
-# An indicator variable that is assigned 1 when item is placed into binNum
-possible_ItemInBin = [(itemTuple[0], binNum) for itemTuple in items
-                                            for binNum in range(maxBins)]
+print("Solving large instances...")
+for i in range(15):
+        pulpSolver.run(path, "Instances\\large\\instance" + str(i) + ".txt")
+       # t = pulpSolver.run(path, "Instances\\large\\instance" + str(i) + ".txt")
+       # print("Time to solve instance" + str(i) + ": " + str(t.time))
 
 
-x = pulp.LpVariable.dicts('itemInBin', possible_ItemInBin,
-                            lowBound = 0,
-                            upBound = 1,
-                            cat = pulp.LpInteger)
 
-print(x)
+
+
+
+
+
+
+
 

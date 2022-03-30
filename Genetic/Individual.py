@@ -8,6 +8,7 @@ class Individual:
     # Initialization
     # capacity of bin, item_count, list of items, *genes
     def __init__(self, *args):
+        self.full_bins = 0
         self.capacity = args[0]
         self.item_count = args[1]
         self.bins = Bin.emptyBinGenerator(self.item_count, self.capacity)
@@ -27,7 +28,9 @@ class Individual:
             self.fillBins()
             self.binAdjustment()
             self.setFitness()
-            # print("New ofspring fitness: ", self.fitness)
+            # print("New ofspring fitness: ", self.fitness
+
+        self.full_bins = self.getFullBinCount()
 
     def getGenes(self):
         return self.genes

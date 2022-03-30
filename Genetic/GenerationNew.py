@@ -18,6 +18,8 @@ class GenerationNew:
     gen_count = 0
     population = []
     mutation_chance = 0.1
+    stagnation_index = 0
+    stagnation_max = 50
 
     # TODO needs a constructor class that takes in Individuals list i.e. Individuals of a generation as argument
 
@@ -40,20 +42,23 @@ class GenerationNew:
         '''
 
         # TODO counting bins to see if there was change in the result in the past 40gens
-
-
+        # if(self.bestResult() == GenerationNew.current_occupied_bins):
+        #    GenerationNew.stagnation_index += 1
+        # if(GenerationNew.stagnation_index == GenerationNew.stagnation_max)
 
         if self.gen_count == 250:
-            best_individual = Individual
-            full_bins = self.item_count
-            for el in GenerationNew.population:
-                count = el.getFullBinCount()
-                if count < full_bins:
-                    best_individual = el
-                    full_bins = el.getFullBinCount()
-
             # print("Best genes: ", best_individual.getGenes())
-            print("Sorted in ", full_bins, " bins")
+            print("Sorted in ", self.bestResult(), " bins")
+
+    # def stagnationCheck(self):
+
+
+    def bestResult(self):
+        result = self.item_count
+        for el in self.population:
+            if el.full_bins < result:
+                result = el.full_bins
+        return result
 
     def getPopulation(self):
         return GenerationNew.population

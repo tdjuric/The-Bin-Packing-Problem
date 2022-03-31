@@ -52,6 +52,7 @@ def run(path, instance):
     # Inicijalizacija problema
     prob = LpProblem("Bin Packing Problem", LpMinimize)
 
+
     # Dodavanje f-je cilja
     prob += lpSum([y[i] for i in range(maxBins)]), "Cilj: Minimizovati iskoristenost korpi"
 
@@ -71,8 +72,12 @@ def run(path, instance):
 
     # Rjesavanje optimizacije
     start_time = time.time()
-    prob.solve()
-    print("Solved in %s seconds." % (time.time() - start_time))
+    prob.solve(PULP_CBC_CMD(timeLimit=600))
+    totalTime = prob.solutionCpuTime
+    objValue =  prob.objective.value()
+    print("Time to solve instance: ", prob.solutionCpuTime)
+    print("Value :", prob.objective.value())
+
 
 
 
@@ -96,75 +101,4 @@ def run(path, instance):
     for b in bins.keys():
         print(str(b) + ": " + str(bins[b]))
 
-
-# solve:
-def run1(path, instance):
-    path = path
-    print(path)
-    bin_size, number_of_instances, dict = ReadInInstances.readInInstances(path + instance)
-    print(path + instance)
-
-    items = []
-    for i in dict.keys():
-        items.append((i, dict[i]))
-    print(items)
-
-    itemCount = number_of_instances
-
-    maxBins = itemCount
-
-    binCapacity = bin_size
-
-    y = pulp.LpVariable.dicts('BinUsed', range(maxBins),
-                              lowBound=0,
-                              upBound=1,
-                              cat=LpInteger)
-
-    possible_ItemInBin = [(itemTuple[0], binNum) for itemTuple in items
-                          for binNum in range(maxBins)]
-
-    x = pulp.LpVariable.dicts('itemInBin', possible_ItemInBin,
-                              lowBound=0,
-                              upBound=1,
-                              cat=LpInteger)
-
-    prob = LpProblem("Bin Packing Problem", LpMinimize)
-
-    prob += lpSum([y[i] for i in range(maxBins)]), "Cilj: Minimizovati iskoristenost korpi"
-
-    for j in items:
-        prob += lpSum([x[(j[0], i)] for i in range(maxBins)]) == 1, (
-                    "Stavka moze biti samo u jednoj korpi -- " + str(j[0]))
-
-
-    for i in range(maxBins):
-        prob += lpSum([items[j][1] * x[(items[j][0], i)] for j in range(itemCount)]) <= binCapacity * y[i], (
-                "Suma velicina stavki mora biti manja od kapaciteta korpe -- " + str(i))
-
-
-    prob.writeLP("BinPack.lp")
-
-    start_time = time.time()
-    prob.solve()
-    print("Solved in %s seconds." % (time.time() - start_time))
-
-    for i in range(maxBins):
-        print(str(y[i]) + ": " + str(y[i].value()))
-    print("Bins used: " + str(sum(([y[i].value() for i in range(maxBins)]))))
-
-    bins = {}
-    for itemBinPair in x.keys():
-        if (x[itemBinPair].value() == 1):
-            itemNum = itemBinPair[0]
-            binNum = itemBinPair[1]
-            if binNum in bins:
-                bins[binNum].append(itemNum)
-            else:
-                bins[binNum] = [itemNum]
-
-    for b in bins.keys():
-        print(str(b) + ": " + str(bins[b]))
-
-
-
-
+    return totalTime, objValue

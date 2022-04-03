@@ -135,20 +135,20 @@ def run(index):
 
 def writeToFile(index,list1, list2, list3):
     file_name = "GeneticTestResults" + str(index) +".txt"
-    f = open("GeneticTestResults.txt", "w")
-    f.write("small")
+    f = open(file_name, "w")
+    f.write("small\n")
     for el in list1:
         f.write(str(el["instance"]) + " " + str(el["result"]) + " " + str(el["time"]))
         f.write("\n")
         print(el["instance"], " ", el["result"], " ", el["time"])
 
-    f.write("medium")
+    f.write("medium\n")
     for el in list2:
         f.write(str(el["instance"]) + " " + str(el["result"]) + " " + str(el["time"]))
         f.write("\n")
         print(el["instance"], " ", el["result"], " ", el["time"])
 
-    f.write("large")
+    f.write("large\n")
     for el in list3:
         f.write(str(el["instance"]) + " " + str(el["result"]) + " " + str(el["time"]))
         f.write("\n")

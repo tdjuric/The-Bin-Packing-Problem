@@ -45,4 +45,4 @@ def run():
 def f1(dict, bin_size):
     (firstFitDecreasing.first_fit_decreasing_algorithm(dict, bin_size, return_sizes=True))
 
-# run()
+run()

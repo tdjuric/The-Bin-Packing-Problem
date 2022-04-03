@@ -72,7 +72,7 @@ def run(path, instance):
 
     # Rjesavanje optimizacije
     start_time = time.time()
-    prob.solve(PULP_CBC_CMD(timeLimit=600))
+    prob.solve(PULP_CBC_CMD(timeLimit=300))
     totalTime = prob.solutionCpuTime
     objValue =  prob.objective.value()
     print("Time to solve instance: ", prob.solutionCpuTime)

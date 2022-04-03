@@ -12,7 +12,7 @@ import The_Bin_Packing_Problem.FileManipulation.ReadInInstances as ReadInInstanc
 # path = "C:\\Users\\Tanja\\Desktop\\Projekat iz OI\\The_Bin_Packing_Problem\\Instances\\"
 # path = "C:\\Users\\Anel\\Desktop\\Faks\\3. Godina\\Operaciona Istraživanja\\Projekat\\The_Bin_Packing_Problem\\"
 # path =  "C:\\Users\\Tanja\\Desktop\\Projekat iz OI\\The_Bin_Packing_Problem\\"
-# path = "C:\\Users\\PC\\Desktop\\OI projekat\\ProjectPython\\The_Bin_Packing_Problem\\Instances\\"
+path = "C:\\Users\\PC\\Desktop\\OI projekat\\ProjectPython\\The_Bin_Packing_Problem\\"
 # bin_size, number_of_instances, dict = firstFitDecreasing.readInInstances("C:\\Users\\Anel\\Desktop\\Faks\\3. Godina\\Operaciona Istraživanja\\Projekat\\The_Bin_Packing_Problem\\Pulp\\instance.txt")
 def run(path, instance):
     bin_size, number_of_instances, dict = ReadInInstances.readInInstances(path + instance)
@@ -72,7 +72,7 @@ def run(path, instance):
 
     # Rjesavanje optimizacije
     start_time = time.time()
-    prob.solve(PULP_CBC_CMD(timeLimit=600))
+    prob.solve(PULP_CBC_CMD(timeLimit=300))
     totalTime = prob.solutionCpuTime
     objValue =  prob.objective.value()
     print("Time to solve instance: ", prob.solutionCpuTime)

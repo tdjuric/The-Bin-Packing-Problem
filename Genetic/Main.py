@@ -12,9 +12,9 @@ from The_Bin_Packing_Problem.Genetic.GenerationNew import GenerationNew
 
 
 # path = "C:\\Users\\PC\\Desktop\\OI projekat\\ProjectPython\\The_Bin_Packing_Problem\\Instances\\"
-path = "C:\\Users\\Anel\\Desktop\\Faks\\3. Godina\\Operaciona Istraživanja\\Projekat\\The_Bin_Packing_Problem\\Instances\\"
+# path = "C:\\Users\\Anel\\Desktop\\Faks\\3. Godina\\Operaciona Istraživanja\\Projekat\\The_Bin_Packing_Problem\\Instances\\"
 # path = "C:\\Users\\Tanja\\Desktop\\Projekat iz OI\\The_Bin_Packing_Problem\\Instances\\"
-# path = "C:\\Users\\PC\\Desktop\\OI projekat\\ProjectPython\\The_Bin_Packing_Problem\\Instances\\"
+path = "C:\\Users\\PC\\Desktop\\OI projekat\\ProjectPython\\The_Bin_Packing_Problem\\Instances\\"
 '''
 bin_capacity, item_count, dict = ReadInInstances.readInInstances(path + "instance.txt")
 print("Bin cap", bin_capacity)
@@ -45,34 +45,36 @@ print(g.population[0].getFullBinCount())
 def runAlgorithm(bin_capacity, item_count, items):
     resetGenerationNew()
     initial_individuals = []
+    start_time = time.time()
     for i in range(GenerationNew.population_count):
         initial_individuals.append(Individual(bin_capacity, item_count, items))
         GenerationNew.population = initial_individuals
-    for GenerationNew.gen_count in range(250):
+    elapsed_time = time.time()
+    while(elapsed_time-start_time < 600 and GenerationNew.no_improvement_count < GenerationNew.stagnation_max and GenerationNew.gen_count < GenerationNew.max_gen_count):
+        print("Current time: " + str(elapsed_time-start_time) + "\n")
         g = GenerationNew(items, bin_capacity, item_count)
-    return g.bestResult()
+        elapsed_time = time.time()
+    return g.bestResult(), round(elapsed_time-start_time, 2)
 
 def resetGenerationNew():
-    GenerationNew.stagnation_index = 0
+    GenerationNew.no_improvement_count = 0
     GenerationNew.population = []
     GenerationNew.gen_count = 0
     GenerationNew.current_occupied_bins = 0
 
 
 def run(index):
+    file = open("GeneticTestResults" + str(index) + ".txt", "w")
     print("Solving small instances of Genetic algorithm...")
+    file.write("small\n")
     list_of_dicts1 = []
     for i in range(15):
         print("Instance ", str(i))
         items = []
-        bin_capacity, item_count, dict = ReadInInstances.readInInstances(path + "small\instance" + str(i) + ".txt")
+        bin_capacity, item_count, dict = ReadInInstances.readInInstances(path + "small\\instance" + str(i) + ".txt")
         for j in range(item_count):
             items.append(Item(j, dict["item" + str(j+1)]))
-        start = time.time()
-        # t = timeit.Timer(lambda: runAlgorithm(bin_capacity, item_count, items))
-        result = runAlgorithm(bin_capacity, item_count, items)
-        end = time.time()
-        total_time = end-start
+        result,total_time = runAlgorithm(bin_capacity, item_count, items)
         print("Time to solve instance" + str(i) + ": %.2f " % total_time)
         print("Sorted in ", result, " bins")
         dict = {
@@ -81,22 +83,18 @@ def run(index):
             "result": result
         }
         list_of_dicts1.append(dict)
-    # print(list_of_dicts1)
-
+        file.write(str(i) + " " + str (result) + " " +str(total_time) + "\n")
     list_of_dicts2 = []
 
     print("Solving medium instances of Genetic algorithm...")
+    file.write("medium\n")
     for i in range(15):
         print("Instance ", str(i))
         items = []
-        bin_capacity, item_count, dict = ReadInInstances.readInInstances(path + "medium\instance" + str(i) + ".txt")
+        bin_capacity, item_count, dict = ReadInInstances.readInInstances(path + "medium\\instance" + str(i) + ".txt")
         for j in range(item_count):
             items.append(Item(j, dict["item" + str(j + 1)]))
-        start = time.time()
-        # t = timeit.Timer(lambda: runAlgorithm(bin_capacity, item_count, items))
-        result = runAlgorithm(bin_capacity, item_count, items)
-        end = time.time()
-        total_time = end - start
+        result,total_time = runAlgorithm(bin_capacity, item_count, items)
         print("Time to solve instance" + str(i) + ": %.2f " % total_time)
         print("Sorted in ", result, " bins")
         dict = {
@@ -105,21 +103,18 @@ def run(index):
             "result": result
         }
         list_of_dicts2.append(dict)
-    # print(list_of_dicts2)
+        file.write(str(i) + " " + str (result) + " " +str(total_time) + "\n")
 
     list_of_dicts3 = []
     print("Solving large instances of Genetic algorithm...")
+    file.write("large\n")
     for i in range(15):
         print("Instance ", str(i))
         items = []
         bin_capacity, item_count, dict = ReadInInstances.readInInstances(path + "large\instance" + str(i) + ".txt")
         for j in range(item_count):
             items.append(Item(j, dict["item" + str(j + 1)]))
-        start = time.time()
-        # t = timeit.Timer(lambda: runAlgorithm(bin_capacity, item_count, items))
-        result = runAlgorithm(bin_capacity, item_count, items)
-        end = time.time()
-        total_time = end - start
+        result,total_time = runAlgorithm(bin_capacity, item_count, items)
         print("Time to solve instance" + str(i) + ": %.2f " % total_time)
         print("Sorted in ", result, " bins")
         dict = {
@@ -128,10 +123,9 @@ def run(index):
             "result": result
         }
         list_of_dicts3.append(dict)
-    # print(list_of_dicts3)
+        file.write(str(i) + " " + str (result) + " " +str(total_time) + "\n")
+    file.close()
 
-
-    writeToFile(index,list_of_dicts1, list_of_dicts2, list_of_dicts3)
 
 def writeToFile(index,list1, list2, list3):
     file_name = "GeneticTestResults" + str(index) +".txt"
@@ -155,4 +149,9 @@ def writeToFile(index,list1, list2, list3):
         print(el["instance"], " ", el["result"], " ", el["time"])
     f.close()
 
-# run()
+
+
+
+
+for i in range(0,10):
+    run(i)

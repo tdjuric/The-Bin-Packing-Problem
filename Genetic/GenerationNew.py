@@ -16,10 +16,13 @@ class GenerationNew:
 
     population_count = 30
     gen_count = 0
+    max_gen_count = 1000
     population = []
     mutation_chance = 0.1
-    stagnation_index = 0
-    stagnation_max = 50
+    no_improvement_count = 0
+    stagnation_max = 30
+    best_fitness_value = 0
+    fitness_over_time = []
 
     # TODO needs a constructor class that takes in Individuals list i.e. Individuals of a generation as argument
 
@@ -28,27 +31,33 @@ class GenerationNew:
         self.bin_capacity = bin_capacity
         self.item_count = item_count
         GenerationNew.gen_count += 1
-        # print("Generation number: " + str(GenerationNew.gen_count))
+        print("Generation number: " + str(GenerationNew.gen_count))
         self.doGeneration()
-        # print("Best fitness: ")
 
-        '''
-        i = GenerationNew.population[0].getFitness()
-        for el in GenerationNew.population:
-            print("EL fitness: ", el.getFitness())
-            if (el.getFitness()>i):
-                i = el.getFitness()
-        print(i)
-        '''
 
-        # TODO counting bins to see if there was change in the result in the past 40gens
-        # if(self.bestResult() == GenerationNew.current_occupied_bins):
-        #    GenerationNew.stagnation_index += 1
-        # if(GenerationNew.stagnation_index == GenerationNew.stagnation_max)
+        #bcs we have sorted the generation by fitness, the 1st element has the highest fitness
 
-        if self.gen_count == 250:
+        current_fitness = GenerationNew.population[0].getFitness()
+        print("Best fitness: ")
+        print(current_fitness)
+        self.fitness_over_time.append(current_fitness)
+
+
+
+        # TODO Stagnation Check
+        if current_fitness == GenerationNew.best_fitness_value:
+            GenerationNew.no_improvement_count += 1
+        else:
+            GenerationNew.best_fitness_value = current_fitness
+            GenerationNew.no_improvement_count = 0
+
+        print("\nBest Result: ")
+        print(self.bestResult())
+
+
+        #if self.gen_count == 200:
             # print("Best genes: ", best_individual.getGenes())
-            print("Sorted in ", self.bestResult(), " bins")
+            #print("Sorted in ", self.bestResult(), " bins")
 
     # def stagnationCheck(self):
 
@@ -91,23 +100,25 @@ class GenerationNew:
 
         # improving on the algorithm by mixing newly created gen with parents and selecting the best #population_count
 
-        # GenerationNew.population.extend(offspring_list)
-        GenerationNew.population = offspring_list
+        GenerationNew.population.extend(offspring_list)
+        # GenerationNew.population = offspring_list
 
-        # GenerationNew.population = sorted(GenerationNew.population, key=lambda x: x.fitness, reverse=True)[:self.population_count]
+        GenerationNew.population = sorted(GenerationNew.population, key=lambda x: x.fitness, reverse=True)[:self.population_count]
+        # print("Size of new population " + str (len(GenerationNew.population)))
         # Generation
         # print("Duzina: ", len(self.population))
 
 
 
     def generateOffspring(self, individual_a, individual_b):
-        crossover_position = random.randint(1, len(individual_a.genes) - 1)
-        offspring_a = self.doCrossover(individual_a, individual_b, crossover_position)
-        offspring_b = self.doCrossover(individual_b, individual_a, crossover_position)
+        # crossover_position = random.randint(1, len(individual_a.genes) - 1)
+        offspring_a = self.doCrossover(individual_a, individual_b)
+        offspring_b = self.doCrossover(individual_b, individual_a)
 
         return offspring_a, offspring_b
 
-    def doCrossover(self, individual_a, individual_b, crossover_position):
+    def doCrossover(self, individual_a, individual_b):
+        crossover_position = random.randint(1, len(individual_a.genes) - 1)
         offspring_gene_sequence = individual_a.getGenes()[:crossover_position]
         offspring_gene_sequence.extend(individual_b.getGenes()[crossover_position:])
 
@@ -131,16 +142,18 @@ class GenerationNew:
             return candidate_2
 
     def mutate(self, offspring_a, offspring_b):
-        new_offspring_a = Individual (self.bin_capacity, self.item_count, self.items, offspring_a.getGenes())
-        new_offspring_b = Individual(self.bin_capacity, self.item_count, self.items, offspring_b.getGenes())
+
 
         if(random.uniform(0,1) <= self.mutation_chance):
-            new_offspring_a = self.mutateIndividual(offspring_a)
+            offspring_a = self.mutateIndividual(offspring_a)
             # print("Mutation")
 
         if (random.uniform(0, 1) <= self.mutation_chance):
-            new_offspring_b = self.mutateIndividual(offspring_b)
+            offspring_b = self.mutateIndividual(offspring_b)
             # print("Mutation")
+
+        new_offspring_a = Individual(self.bin_capacity, self.item_count, self.items, offspring_a.getGenes())
+        new_offspring_b = Individual(self.bin_capacity, self.item_count, self.items, offspring_b.getGenes())
 
         return new_offspring_a, new_offspring_b
 

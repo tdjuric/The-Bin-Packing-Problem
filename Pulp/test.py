@@ -1,21 +1,23 @@
 import pulp
 import pulpSolver as pulpSolver
 
-path = "C:\\Users\\Anel\\Desktop\\Faks\\3. Godina\\Operaciona Istraživanja\\Projekat\\The_Bin_Packing_Problem\\"
+path = "C:\\Users\\PC\\Desktop\\OI projekat\\ProjectPython\\The_Bin_Packing_Problem\\"
 
-""" 
-p = pulpSolver.run(path, "Pulp\\instance.txt")
-"""
-time,value = pulpSolver.run(path, "Instances\\medium\\instance0.txt")
-
-file = open("tempOutput.txt")
-file.write(str(time) + "\n")
-file.write(str(value))
+'''
+list1 = []
+time,value = pulpSolver.run(path, "Pulp\\instance.txt")
+dict = {
+        "instance": 0,
+        "time": time,
+        "result": value
+    }
+list1.append(dict)
+'''
 
 print("Solving small instances...")
 list1 = []
 for i in range(15):
-    time,value = pulpSolver.run(path, "Instances\\small\\instance" + str(i) + ".txt")
+    time, value = pulpSolver.run(path, "Instances\\small\\instance" + str(i) + ".txt")
     dict = {
         "instance": i,
         "time": time,
@@ -23,31 +25,27 @@ for i in range(15):
     }
     list1.append(dict)
 
-
-
-
 print("Solving medium instances...")
 list2 = []
 for i in range(15):
-       time, value = pulpSolver.run(path, "Instances\\medium\\instance" + str(i) + ".txt")
-       dict = {
-           "instance": i,
-           "time": time,
-           "result": value
-       }
-       list2.append(dict)
-
+    time, value = pulpSolver.run(path, "Instances\\medium\\instance" + str(i) + ".txt")
+    dict = {
+        "instance": i,
+        "time": time,
+        "result": value
+    }
+    list2.append(dict)
 
 print("Solving large instances...")
 list3 = []
 for i in range(15):
-       time,value = pulpSolver.run(path, "Instances\\large\\instance" + str(i) + ".txt")
-       dict = {
-           "instance": i,
-           "time": time,
-           "result": value
-       }
-       list1.append(dict)
+    time, value = pulpSolver.run(path, "Instances\\large\\instance" + str(i) + ".txt")
+    dict = {
+        "instance": i,
+        "time": time,
+        "result": value
+    }
+    list3.append(dict)
 
 
 def writeToFile(list1, list2, list3):
@@ -73,4 +71,4 @@ def writeToFile(list1, list2, list3):
     f.close()
 
 
-writeToFile(list1,list2,list3)
+writeToFile(list1, list2, list3)
